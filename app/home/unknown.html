@@ -4,7 +4,9 @@
 
     <thead>
     <tr>
-        <th scope="col" ng-repeat="label in data.labels">
+        <th scope="col"
+            ng-repeat="label in data.labels"
+            ng-class="{'borderLeftCell': !$first}">
             {{label}}
         </th>
     </tr>

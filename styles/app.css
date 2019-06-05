@@ -49,7 +49,19 @@ a.navbar-brand {
 
 /* TABLE */
 table {
-    box-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+
     margin-top: 30px;
+    background-color: #8dbdd8 !important;
 }
 
+table.table-light thead th {
+    border:0;
+}
+
+.borderLeftCell{
+    border-left:2px solid white !important;
+}
+
+.borderRightCell{
+    border-right:2px solid white !important;
+}
