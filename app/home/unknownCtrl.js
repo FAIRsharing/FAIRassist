@@ -12,27 +12,6 @@ define(['app'], function (app) {
             "label 5"
         ];
         $scope.data.content = [
-            {
-                "abc": "defdefde fdefd efdefdefdefdefd ef",
-                "def": "def defdef fdefdef def",
-                "ijk": "def",
-                "lmn": "def",
-                "opc": "def"
-            },
-            {
-                "abc": "def",
-                "def": "def",
-                "ijk": "def",
-                "lmn": "def",
-                "opc": "def"
-            },
-            {
-                "abc": "def",
-                "def": "def",
-                "ijk": "def",
-                "lmn": "def",
-                "opc": "def"
-            }
         ];
 
         /* DISPLAY */
