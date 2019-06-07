@@ -49,19 +49,28 @@ a.navbar-brand {
 
 /* TABLE */
 table {
-
     margin-top: 30px;
-    background-color: #8dbdd8 !important;
+    table-layout: auto;
 }
 
 table.table-light thead th {
+    background-color: #8dbdd8 !important;
     border:0;
+    color:white;
+    text-align:center;
+    font-size:1.5rem;
+    text-transform: capitalize;
+}
+
+table tr td {
+    text-align: center;
+    font-size:1.2rem;
 }
 
 .borderLeftCell{
-    border-left:2px solid white !important;
+    border-left:1px solid white !important;
 }
 
 .borderRightCell{
-    border-right:2px solid white !important;
+    border-right:1px solid white !important;
 }

@@ -12,6 +12,13 @@
     </tr>
     </thead>
 
-    <tbody></tbody>
+    <tbody>
+        <tr ng-repeat="item in data.content">
+            <td ng-repeat="field in item"
+                ng-class="{'borderLeftCell': !$first}">
+                {{field}}
+            </td>
+        </tr>
+    </tbody>
 
 </table>
