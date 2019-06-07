@@ -1,5 +1,5 @@
 define(['app'], function (app) {
-    app.register.controller('View1Controller', ['$scope', '$window', function ($scope, $window) {
+    app.register.controller('View1Controller', ['$scope', '$window', '$http', function ($scope, $window, $http) {
 
         /* CONTENT */
         $scope.data = {};
@@ -24,6 +24,16 @@ define(['app'], function (app) {
            console.log($scope.display.mobile);
         });
 
+        let spreadsheetID = "1gzt5eYLk-5MJ-EC1s8KDq5fpFcNQxa47PUWAGk2gHzw";
+        let request = {
+            method: 'GET',
+            url: "https://spreadsheets.google.com/feeds/list/" + spreadsheetID + "/1/public/full?alt=json"
+        };
+
+        $http(request).then(function(response){
+            console.log(response)
+            $scope.data.content = response.data['feed']['entry']
+        })
 
 
 
