@@ -5,19 +5,19 @@
     <thead>
     <tr>
         <th scope="col"
-            ng-repeat="label in data.labels"
+            ng-repeat="label in display.labels"
             ng-class="{'borderLeftCell': !$first}"
             class="blue-bg">
-            {{label}}
+            {{label.label}}
         </th>
     </tr>
     </thead>
 
     <tbody>
         <tr ng-repeat="item in data.content">
-            <td ng-repeat="field in item"
+            <td ng-repeat="label in display.labels"
                 ng-class="{'borderLeftCell': !$first}">
-                {{field}}
+                {{item[label.property]['$t']}}
             </td>
         </tr>
     </tbody>
@@ -25,9 +25,13 @@
 </table>
 
 <div id="toolGrid" class="grid container-fluid" ng-if="display.mobile">
-    <div class="row tool"
+    <div class="tool"
          ng-class-odd="'blue-bg'"
          ng-repeat="item in data.content">
-        {{item}}
+            <div class="field"
+                 ng-repeat="field in display.labels"
+                 ng-if="item[field.property]['$t']">
+                <span class="label">{{field.label}}:</span> <span> {{item[field.property]['$t']}}</span>
+            </div>
     </div>
 </div>
