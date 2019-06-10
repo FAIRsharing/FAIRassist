@@ -15,9 +15,12 @@ require.config({
     shim: {
         'app': ['angular-route'],
         'angular-route': ['angular'],
+        'angular': {
+            exports: 'angular'
+        }
     },
 
     // kick start application
     deps: ['app']
 
-})
+});

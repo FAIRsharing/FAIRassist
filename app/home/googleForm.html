@@ -1,0 +1,37 @@
+<div class="getFormContainer" ng-controller="googleFormController">
+
+    <button class="btn btn-info" ng-click="toggleFrame()">
+        Create new entry
+    </button>
+
+    <div class="formOverlay" ng-if="showGoogleForm">
+        <div class="googleFormContainer">
+            <div class="googleForm">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-11"></div>
+                        <div class="col-1 closeBtn">
+                            <button class="noSkin" ng-click="toggleFrame()">
+                                <i class="fa fa-times" aria-hidden="true"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <iframe ng-src="{{form_URL}}"
+                        width="100%" height="1500"
+                        frameborder="0"
+                        marginheight="0"
+                        marginwidth="0"
+                        ng-if="form_URL">
+                    Loading...
+                </iframe>
+                <div ng-if="!form_URL">
+                    No URL loaded yet. Load a google form URL in the googleFormController to display it here!
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>

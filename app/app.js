@@ -1,8 +1,18 @@
-define(function () {
+/*define(['angular', 'home/testCtrl'], function (angular,controller) {
+    angular.module('app',[])
+        .controller('myController', controller);
+});*/
+
+define(['angular', 'home/googleFormCtrl'], function (angular, controller) {
 
     let app = angular.module("FAIRassist", ['ngRoute']);
 
-    app.config(['$routeProvider', '$controllerProvider', '$provide', function ($routeProvider, $controllerProvider, $provide) {
+    // Inject the googleFormController (different from using into a view, see below) */
+    app.controller('googleFormController', controller);
+
+    app.config(['$routeProvider', '$controllerProvider', '$provide', function ($routeProvider,
+                                                                               $controllerProvider,
+                                                                               $provide) {
 
         app.register = {
             controller: $controllerProvider.register,
@@ -42,7 +52,12 @@ define(function () {
         }
     });
 
-
+    app.directive('googleForm', function(){
+        return{
+            restrict: 'A',
+            templateUrl: 'app/home/googleForm.html',
+        }
+    });
 
     return app;
 });

@@ -1,5 +1,5 @@
 define(['app'], function (app) {
-    app.register.controller('View1Controller', ['$scope', '$window', '$http', function ($scope, $window, $http) {
+    app.register.controller('View1Controller', ['$scope', '$window', '$http', '$sce', function ($scope, $window, $http, $sce) {
 
         /* CONTENT */
         $scope.data = {};
