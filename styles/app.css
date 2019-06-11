@@ -32,7 +32,6 @@ p {
     font-family: "Lato", sans-serif !important;
     text-align: justify;
 }
-
 hr {
     border:0;
     height: 1px;
@@ -84,7 +83,11 @@ a.navbar-brand {
 /* TABLE */
 table {
     margin-top: 30px;
-    table-layout: fixed;
+    table-layout: auto;
+}
+
+table, button {
+    box-shadow: 3px 3px 3px rgba(0,0,0, 0.5)
 }
 
 table.table-light thead th {
@@ -93,11 +96,18 @@ table.table-light thead th {
     text-align:center;
     font-size:1.5rem;
     text-transform: capitalize;
+    vertical-align: middle;
 }
 
 table tr td {
+    font-size:1.1rem;
+    padding:10px 20px;
     text-align: center;
-    font-size:1.2rem;
+}
+
+table tr td.Elements.Key{
+    text-align: left;
+    padding: 10px 30px;
 }
 
 .borderLeftCell{
@@ -181,4 +191,11 @@ table tr td {
     border-radius:0;
     background-color:#36A9E1;
     font-size:1.5rem;
+}
+
+.trimText {
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
