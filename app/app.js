@@ -34,9 +34,9 @@ define(['angular', 'home/googleFormCtrl'], function (angular, controller) {
 
         $routeProvider
             .when("/", {
-                templateUrl: "app/home/unknown.html",
-                controller: "View1Controller",
-                resolve: resolveController(["View1Controller"])
+                templateUrl: "app/home/home.html",
+                controller: "HomeController",
+                resolve: resolveController(["HomeController"])
             })
             .otherwise({redirectTo: '/'});
     }]);

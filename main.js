@@ -7,7 +7,7 @@ require.config({
         'angular-route': '../node_modules/angular-route/angular-route',
         'jquery': '../node_modules/jquery/dist/jquery',
         'bootstrap': '../node_modules/bootstrap/dist/js/bootstrap.min',
-        'View1Controller': 'home/unknownCtrl',
+        'HomeController': 'home/homeCtrl',
         'app': 'app'
     },
 
