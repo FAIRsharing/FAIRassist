@@ -84,6 +84,8 @@ a.navbar-brand {
 table {
     margin-top: 30px;
     table-layout: auto;
+    font-family: 'Arial', sans-serif;
+    font-size:11px;
 }
 
 table, button {
