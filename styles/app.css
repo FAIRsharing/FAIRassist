@@ -209,6 +209,15 @@ table tr td.Elements.Key{
     font-size:1.5rem;
 }
 
+.getFormContainer button.blue-bg:hover{
+    color:white;
+    background: #7097ac !important;
+}
+
+.getFormContainer button.blue-bg:focus{
+    background-color: #547181 !important;
+}
+
 .trimText {
     display: inline-block;
     white-space: nowrap;
