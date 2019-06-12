@@ -183,7 +183,7 @@ table tr td.Elements.Key{
     border-radius:10px;
     padding:20px;
     background-color:white;
-    overflow-y: scroll;
+    overflow-y: hidden;
 }
 
 .formOverlay .googleFormContainer  .closeBtn {
