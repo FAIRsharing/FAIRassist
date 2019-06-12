@@ -28,6 +28,9 @@ define(['app'], function (app) {
                 if ($scope.data.content.hasOwnProperty(item)) {
                     $scope.data.content[item]['gsx$describethekeyelementsofyourresource']['$t'] =
                         $sce.trustAsHtml($scope.data.content[item]['gsx$describethekeyelementsofyourresource']['$t'].trim().replace(/\n/g, '<BR>'));
+                    $scope.data.content[item]['gsx$whattypeofexecutionisit']['$t'] =
+                        $sce.trustAsHtml($scope.data.content[item]['gsx$whattypeofexecutionisit']['$t'].trim().replace(/,/g, '<BR>'));
+
                 }
             }
             $scope.display.labels = build_labels(response.data['feed']['entry'][0]);
