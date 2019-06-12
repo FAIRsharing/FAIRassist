@@ -103,8 +103,9 @@ table.table-light thead th {
 
 table tr td {
     font-size:1.1rem;
-    padding:10px 20px;
+    padding:20px !important;
     text-align: center;
+    vertical-align: middle !important;
 }
 
 table tr td.Elements.Key{
