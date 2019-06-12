@@ -67,7 +67,7 @@ define(['app'], function (app) {
                                 }
 
                                 if (current_label === 'Key-features'){
-                                    current_value = $sce.trustAsHtml(item['gsx$describethekeyfeaturesandfunctionalitiesofyourresource']['$t'].replace(/\n/g, '<BR>'));
+                                    current_value = $sce.trustAsHtml(item['gsx$describethekeyfeaturesandfunctionalitiesofyourresource']['$t'].replace(/\n/g, '<BR>').trim());
                                 }
 
 
