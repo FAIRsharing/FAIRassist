@@ -27,7 +27,7 @@ define(['app'], function (app) {
             for (let item in $scope.data.content) {
                 if ($scope.data.content.hasOwnProperty(item)) {
                     $scope.data.content[item]['gsx$describethekeyelementsofyourresource']['$t'] =
-                        $sce.trustAsHtml($scope.data.content[item]['gsx$describethekeyelementsofyourresource']['$t'].trim());
+                        $sce.trustAsHtml($scope.data.content[item]['gsx$describethekeyelementsofyourresource']['$t'].trim().replace(/\n/g, '<BR>'));
                 }
             }
             $scope.display.labels = build_labels(response.data['feed']['entry'][0]);
