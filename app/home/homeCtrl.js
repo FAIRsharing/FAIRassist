@@ -5,8 +5,17 @@ define(['app'], function (app) {
         $scope.data = {};
         $scope.data.title = "List of FAIR evaluation services";
         $scope.data.content = [];
+
         $scope.display = {};
         $scope.display.mobile = ($window.innerWidth <= 900) ;
+        $scope.display.authorized_labels = [
+            "Resource",
+            "Execution-type",
+            "Key-features",
+            "Organisation",
+            "Target-objects",
+            "Reading-material"
+        ];
 
         /* trigger the digest cycle when the window in re-sized to compute width vies */
         angular.element($window).bind('resize', function(){
@@ -15,53 +24,83 @@ define(['app'], function (app) {
         });
 
         /* Accessing the spreadsheet */
-        let spreadsheetID =  "1sDm6rnDXtpmxyh_aw5bvj5gItSwh-x6a8HfuI3V_eUg";
+        let spreadsheetID =  "11do5pyqEAI_mSq_kRWQpHe3GSGUtWOwlbe_uQW9sZs4";
         let request = {
             method: 'GET',
             url: "https://spreadsheets.google.com/feeds/list/" + spreadsheetID + "/1/public/full?alt=json"
         };
+
+        /* TRIGGERING THE QUERY AND BUILDING THE DATA */
         $http(request).then(function(response){
-            $scope.data.content = response.data['feed']['entry'];
-
-            /* Processing safe HTML */
-            for (let item in $scope.data.content) {
-                if ($scope.data.content.hasOwnProperty(item)) {
-                    $scope.data.content[item]['gsx$describethekeyelementsofyourresource']['$t'] =
-                        $sce.trustAsHtml($scope.data.content[item]['gsx$describethekeyelementsofyourresource']['$t'].trim().replace(/\n/g, '<BR>'));
-                    $scope.data.content[item]['gsx$whattypeofexecutionisit']['$t'] =
-                        $sce.trustAsHtml($scope.data.content[item]['gsx$whattypeofexecutionisit']['$t'].trim().replace(/,/g, '<BR>'));
-                    $scope.data.content[item]['gsx$typeofobjectsthatcanbeaccessed']['$t'] =
-                        $sce.trustAsHtml($scope.data.content[item]['gsx$typeofobjectsthatcanbeaccessed']['$t'].trim());
-
-                }
-            }
             $scope.display.labels = build_labels(response.data['feed']['entry'][0]);
+
+            let output = [];
+            let it = 0;
+            for (let item_it in response.data['feed']['entry']) {
+                if (response.data['feed']['entry'].hasOwnProperty(item_it)) {
+
+                    let valid_item = false;
+                    let new_item = {};
+
+                    if (it > 0){
+                        let item = response.data['feed']['entry'][item_it];
+
+                        for (let field in item) {
+                            if (item.hasOwnProperty(field) && field.indexOf('gsx$') > -1) {
+
+                                let current_label = $scope.display.labels[field];
+                                let current_value = $sce.trustAsHtml(item[field]['$t']);
+
+                                if (current_label === 'Resource' && item['gsx$whatistheurloftheresource']['$t'] !== "") {
+                                    let resource_URL = item['gsx$whatistheurloftheresource']['$t'];
+                                    current_value = $sce.trustAsHtml("<a href='" + resource_URL + "' target='_blank'>" + item[field]['$t'] + "</a>")
+                                }
+
+                                if (current_label === 'Organisation' && item['gsx$whatistheurlofthisorganization']['$t'] !== "") {
+                                    let organisation_URL = item['gsx$whatistheurlofthisorganization']['$t'];
+                                    current_value = $sce.trustAsHtml("<a href='" + organisation_URL + "' target='_blank'>" + item[field]['$t'] + "</a>")
+                                }
+
+                                if (current_label === 'Reading-material' && item['gsx$theurlofthisoverviewmaterial']['$t'] !== "") {
+                                    let document_URL = item['gsx$theurlofthisoverviewmaterial']['$t'];
+                                    current_value = $sce.trustAsHtml("<a href='" + document_URL + "' target='_blank'>" + item[field]['$t'] + "</a>")
+                                }
+
+                                if (current_label === 'Key-features'){
+                                    current_value = $sce.trustAsHtml(item['gsx$describethekeyfeaturesandfunctionalitiesofyourresource']['$t'].replace(/\n/g, '<BR>'));
+                                }
+
+
+                                if ($scope.display.authorized_labels.indexOf($scope.display.labels[field]) > -1){
+                                    new_item[current_label] = current_value;
+                                }
+
+                                if (field === 'gsx$reviewed' && item[field]['$t'] === 'Y' ) {
+                                    valid_item = true;
+                                }
+                            }
+                        }
+                    }
+                    if (valid_item) {
+                        output.push(new_item)
+                    }
+                }
+                it++;
+            }
+            $scope.data.content = output;
         });
 
         /* PRIVATE FUNCTIONS */
-
         let build_labels = function(item){
-            /* Builds the labels using the first item in the response list */
-            let labels = [];
-            let ignored_labels = [
-                "Label", "ResourceURL", "OrganizationURL", "MaterialURL", "Reviewed"
-            ];
+            let labels = {};
             for (let field in item){
                 if (item.hasOwnProperty(field)
-                    && field.indexOf('gsx$') !== -1
-                    && ignored_labels.indexOf(item[field]['$t']) === -1)
+                    && field.indexOf('gsx$') !== -1)
                 {
-                    console.log(field);
-                    console.log(item[field]);
-                    let label = item[field]['$t'];
-                    labels.push({property: field, label: label})
+                    labels[field] = item[field]['$t'];
                 }
             }
-
             return labels;
         }
-
-
-
     }])
 });

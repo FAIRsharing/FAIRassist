@@ -59,5 +59,11 @@ define(['angular', 'home/googleFormCtrl'], function (angular, controller) {
         }
     });
 
+    app.filter('remove_dash', function() {
+        return function (str) {
+            return str.replace(/-/g, ' ');
+        };
+    });
+
     return app;
 });

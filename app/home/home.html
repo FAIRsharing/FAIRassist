@@ -24,26 +24,24 @@
     <thead>
     <tr>
         <th scope="col"
-            ng-repeat="label in display.labels"
+            ng-repeat="(label_pro, label_name) in display.labels"
             ng-class="{'borderLeftCell': !$first}"
-            class="blue-bg">
-            {{label.label}}
+            class="blue-bg" ng-if="display.authorized_labels.indexOf(label_name) > -1">
+            {{label_name | remove_dash}}
         </th>
     </tr>
     </thead>
 
     <tbody>
-        <tr ng-repeat="item in data.content"
-            ng-if="$index > 0">
-            <td ng-repeat="label in display.labels"
-                ng-class="{'borderLeftCell': !$first}"
-                class="{{label.label}}"
-                ng-if="item['gsx$reviewed']['$t']">
-                <a href="{{item['gsx$whatistheurloftheresource']['$t']}}" target="_blank" ng-if="label.label == 'Resource'">{{item[label.property]['$t']}}</a>
-                <a href="{{item['gsx$whatistheurloftheorganization']['$t']}}" target="_blank" ng-if="label.label == 'Organization'">{{item[label.property]['$t']}}</a>
-                <a href="{{item['gsx$associatedreadingmaterialurl']['$t']}}" target="_blank" ng-if="label.label == 'Reading Material'">{{item[label.property]['$t']}}</a>
-                <div ng-if="label.label != 'Organization' && label.label != 'Resource' && label.label != 'Reading Material'" ng-bind-html="item[label.property]['$t']"></div>
+        <tr ng-repeat="item in data.content">
+            {{item}}
+
+            <td ng-repeat="label in display.authorized_labels"
+                ng-class="{'borderLeftCell': !$first"
+                class="{{label}}">
+                <div ng-bind-html="item[label]"></div>
             </td>
+
         </tr>
     </tbody>
 
