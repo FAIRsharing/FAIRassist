@@ -30,6 +30,8 @@ define(['app'], function (app) {
                         $sce.trustAsHtml($scope.data.content[item]['gsx$describethekeyelementsofyourresource']['$t'].trim().replace(/\n/g, '<BR>'));
                     $scope.data.content[item]['gsx$whattypeofexecutionisit']['$t'] =
                         $sce.trustAsHtml($scope.data.content[item]['gsx$whattypeofexecutionisit']['$t'].trim().replace(/,/g, '<BR>'));
+                    $scope.data.content[item]['gsx$typeofobjectsthatcanbeaccessed']['$t'] =
+                        $sce.trustAsHtml($scope.data.content[item]['gsx$typeofobjectsthatcanbeaccessed']['$t'].trim());
 
                 }
             }
