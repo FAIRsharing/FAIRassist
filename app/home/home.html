@@ -40,7 +40,7 @@
                 class="{{label.label}}"
                 style="white-space: pre-line;"
                 ng-if="item['gsx$reviewed']['$t']">
-                <a href="{{item['gsx$whatistheurloftheresource']['$t']}}" target="_blank" ng-if="label.label == 'Resource'">{{item[label.property]['$t']}}</a><a href="{{item['gsx$whatistheurloftheorganization']['$t']}}" target="_blank" ng-if="label.label == 'Organization'">{{item[label.property]['$t']}}</a><a href="{{item['gsx$associatedreadingmaterialurl']['$t']}}" target="_blank" ng-if="label.label == 'Reading Material'">{{item[label.property]['$t']}}</a><span ng-if="label.label != 'Organization' && label.label != 'Resource' && label.label != 'Reading Material'">{{item[label.property]['$t']}}</span>
+                <a href="{{item['gsx$whatistheurloftheresource']['$t']}}" target="_blank" ng-if="label.label == 'Resource'">{{item[label.property]['$t']}}</a><a href="{{item['gsx$whatistheurloftheorganization']['$t']}}" target="_blank" ng-if="label.label == 'Organization'">{{item[label.property]['$t']}}</a><a href="{{item['gsx$associatedreadingmaterialurl']['$t']}}" target="_blank" ng-if="label.label == 'Reading Material'">{{item[label.property]['$t']}}</a><div ng-if="label.label != 'Organization' && label.label != 'Resource' && label.label != 'Reading Material'">{{item[label.property]['$t']}}</div>
             </td>
         </tr>
     </tbody>

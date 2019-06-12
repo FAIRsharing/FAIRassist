@@ -15,8 +15,7 @@ define(['app'], function (app) {
         });
 
         /* Accessing the spreadsheet */
-        let spreadsheetID = "1gzt5eYLk-5MJ-EC1s8KDq5fpFcNQxa47PUWAGk2gHzw";
-        spreadsheetID =  "1sDm6rnDXtpmxyh_aw5bvj5gItSwh-x6a8HfuI3V_eUg";
+        let spreadsheetID =  "1sDm6rnDXtpmxyh_aw5bvj5gItSwh-x6a8HfuI3V_eUg";
         let request = {
             method: 'GET',
             url: "https://spreadsheets.google.com/feeds/list/" + spreadsheetID + "/1/public/full?alt=json"
@@ -28,7 +27,7 @@ define(['app'], function (app) {
             for (let item in $scope.data.content) {
                 if ($scope.data.content.hasOwnProperty(item)) {
                     $scope.data.content[item]['gsx$describethekeyelementsofyourresource']['$t'] =
-                        $sce.trustAsHtml($scope.data.content[item]['gsx$describethekeyelementsofyourresource']['$t']);
+                        $sce.trustAsHtml($scope.data.content[item]['gsx$describethekeyelementsofyourresource']['$t'].trim());
                 }
             }
             $scope.display.labels = build_labels(response.data['feed']['entry'][0]);
