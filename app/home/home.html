@@ -49,12 +49,14 @@
 
 <div id="toolGrid" class="grid container-fluid" ng-if="display.mobile">
     <div class="tool"
-         ng-class-odd="'blue-bg'"
-         ng-repeat="item in data.content">
+         ng-class-even="'blue-bg'"
+         ng-repeat="item in data.content"
+         ng-if="$index > 0">
             <div class="field"
                  ng-repeat="field in display.labels"
                  ng-if="item[field.property]['$t']">
-                <span class="label">{{field.label}}:</span> <span> {{item[field.property]['$t']}}</span>
+                <div class="fieldLabel">{{field.label}}:</div>
+                <div class="fieldValue"> {{item[field.property]['$t']}}</div>
             </div>
     </div>
 </div>

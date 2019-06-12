@@ -123,6 +123,8 @@ table tr td.Elements.Key{
 /* GRid */
 #toolGrid {
     margin-top: 20px;
+    font-size:1.4em;
+    font-weight: 300;
 }
 
 #toolGrid.container-fluid{
@@ -144,6 +146,17 @@ table tr td.Elements.Key{
 
 #toolGrid div.field span.label{
     font-weight: bolder;
+}
+
+#toolGrid .fieldLabel{
+    font-weight: 700;
+    display: inline-block;
+    vertical-align: top;
+}
+
+#toolGrid .fieldValue{
+    display: inline-block;
+    white-space: pre-line;
 }
 
 
