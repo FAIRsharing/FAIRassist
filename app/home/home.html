@@ -58,14 +58,53 @@
 
 <div id="toolGrid" class="grid container-fluid" ng-if="display.mobile">
     <div class="tool"
-         ng-class-even="'blue-bg'"
-         ng-repeat="item in data.content"
-         ng-if="$index > 0">
-            <div class="field"
-                 ng-repeat="field in display.labels"
-                 ng-if="item[field.property]['$t']">
-                <div class="fieldLabel">{{field.label}}:</div>
-                <div class="fieldValue"> {{item[field.property]['$t']}}</div>
+         ng-class-odd="'blue-bg'"
+         ng-repeat="item in data.content">
+
+            <h4 class="resourceName">
+                {{item['Resource']}}
+                <a ng-href="{{item['Resource_URL']}}"
+                   target="_blank"
+                   class="fas fa-share-square showResource" ng-if="item['Resource_URL']">
+                </a>
+            </h4>
+
+            <hr>
+
+            <div class="field" id="execution">
+                <span class="label">Type of Execution: </span>{{item['Execution-type']}}
             </div>
+
+            <div class="field" id="organization">
+                <span class="label">Organisation: </span>
+                {{item['Organisation']}}
+                <a ng-href="{{item['Organisation_URL']}}"
+                   target="_blank"
+                   class="fas fa-share-square showResource" ng-if="item['Organisation_URL']">
+                </a>
+            </div>
+
+            <div class="field" id="assessment">
+                <span class="label">Assessing: </span>
+                {{item['Target-objects']}}
+            </div>
+
+            <div class="field" id="material" ng-if="item['Reading-material']">
+                <span class="label">Reading material: </span>
+                {{item['Reading-material']}}
+            </div>
+
+            <div class="field" id="features">
+                <span class="label">Key feature(s): </span>
+                <div class="featuresItems" ng-bind-html="item['Key-features']"></div>
+            </div>
+
+        <!--
+            <div class="field"
+                 ng-repeat="label in display.authorized_labels">
+                    <div class="fieldLabel">{{label}}:</div>
+                    <div class="fieldValue" ng-bind-html="item[label]"></div>
+            </div>
+           -->
     </div>
 </div>
