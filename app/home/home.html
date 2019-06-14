@@ -22,30 +22,41 @@
 <table class="table table-hover table-light table-striped" ng-if="!display.mobile">
 
     <thead>
-    <tr>
-        <th scope="col"
-            ng-repeat="(label_pro, label_name) in display.labels"
-            ng-class="{'borderLeftCell': !$first}"
-            class="blue-bg" ng-if="display.authorized_labels.indexOf(label_name) > -1">
-            {{label_name | remove_dash}}
-        </th>
-    </tr>
+        <tr>
+            <th scope="col"
+                ng-repeat="label_name in display.authorized_labels"
+                ng-class="{'borderLeftCell': !$first}"
+                class="blue-bg" ng-if="display.authorized_labels.indexOf(label_name) > -1"
+                ng-click="display.sorting_field = label_name; display.sorting_order[label_name] = !display.sorting_order[label_name]">
+                {{label_name | remove_dash}}
+                <span class='sorter 'ng-if="display.sorting_field == label_name">
+                    <i class="fa fa-chevron-up" ng-if="display.sorting_order[label_name]"></i>
+                    <i class="fa fa-chevron-down" ng-if="!display.sorting_order[label_name]"></i>
+                </span>
+            </th>
+        </tr>
     </thead>
 
     <tbody>
-        <tr ng-repeat="item in data.content">
-            {{item}}
-
+        <tr ng-repeat="item in data.content | orderBy:'\''+display.sorting_field+'\'':display.sorting_order[display.sorting_field]">
             <td ng-repeat="label in display.authorized_labels"
-                ng-class="{'borderLeftCell': !$first"
+                ng-class="{'borderLeftCell': !$first}"
                 class="{{label}}">
-                <div ng-bind-html="item[label]"></div>
+
+                <div ng-if="item.hasOwnProperty(label + '_URL')">
+                    <a ng-href="{{item[label + '_URL']}}" target="_blank" ng-bind-html="item[label]"></a>
+                </div>
+
+                <div ng-if="!item.hasOwnProperty(label + '_URL')">
+                    <div ng-bind-html="item[label]"></div>
+                </div>
             </td>
 
         </tr>
     </tbody>
-
 </table>
+{{display.sorting_field}}<BR>
+{{display.sorting_order}}
 
 <div id="toolGrid" class="grid container-fluid" ng-if="display.mobile">
     <div class="tool"

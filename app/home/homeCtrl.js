@@ -17,6 +17,15 @@ define(['app'], function (app) {
             "Reading-material"
         ];
 
+        $scope.display.sorting_field = "Resource";
+        $scope.display.sorting_order = {
+            "Resource": false,
+            "Execution-type": false,
+            "Organisation": false,
+            "Target-objects": false,
+            "Reading-material": false
+        };
+
         /* trigger the digest cycle when the window in re-sized to compute width vies */
         angular.element($window).bind('resize', function(){
            $scope.display.mobile = ($window.innerWidth <= 900) ;
@@ -47,34 +56,7 @@ define(['app'], function (app) {
 
                         for (let field in item) {
                             if (item.hasOwnProperty(field) && field.indexOf('gsx$') > -1) {
-
-                                let current_label = $scope.display.labels[field];
-                                let current_value = $sce.trustAsHtml(item[field]['$t']);
-
-                                if (current_label === 'Resource' && item['gsx$whatistheurloftheresource']['$t'] !== "") {
-                                    let resource_URL = item['gsx$whatistheurloftheresource']['$t'];
-                                    current_value = $sce.trustAsHtml("<a href='" + resource_URL + "' target='_blank'>" + item[field]['$t'] + "</a>")
-                                }
-
-                                if (current_label === 'Organisation' && item['gsx$whatistheurlofthisorganization']['$t'] !== "") {
-                                    let organisation_URL = item['gsx$whatistheurlofthisorganization']['$t'];
-                                    current_value = $sce.trustAsHtml("<a href='" + organisation_URL + "' target='_blank'>" + item[field]['$t'] + "</a>")
-                                }
-
-                                if (current_label === 'Reading-material' && item['gsx$theurlofthisoverviewmaterial']['$t'] !== "") {
-                                    let document_URL = item['gsx$theurlofthisoverviewmaterial']['$t'];
-                                    current_value = $sce.trustAsHtml("<a href='" + document_URL + "' target='_blank'>" + item[field]['$t'] + "</a>")
-                                }
-
-                                if (current_label === 'Key-features'){
-                                    current_value = $sce.trustAsHtml(item['gsx$describethekeyfeaturesandfunctionalitiesofyourresource']['$t'].replace(/\n/g, '<BR>').trim());
-                                }
-
-
-                                if ($scope.display.authorized_labels.indexOf($scope.display.labels[field]) > -1){
-                                    new_item[current_label] = current_value;
-                                }
-
+                                new_item[$scope.display.labels[field]] = $sce.trustAsHtml(item[field]['$t'].replace(/\n/g, "<BR>").trim());
                                 if (field === 'gsx$reviewed' && item[field]['$t'] === 'Y' ) {
                                     valid_item = true;
                                 }

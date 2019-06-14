@@ -96,9 +96,13 @@ table.table-light thead th {
     border:0;
     color:white;
     text-align:center;
-    font-size:1.5rem;
+    font-size:1.3rem;
     text-transform: capitalize;
     vertical-align: middle;
+}
+
+table.table-light thead th:hover{
+    cursor: pointer;
 }
 
 table tr td {
@@ -223,4 +227,9 @@ table tr td.Key-features{
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+
+.sorter {
+    font-size:1.1rem;
+    margin-left:10px;
 }
