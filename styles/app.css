@@ -283,3 +283,12 @@ span.label{
     font-size:1.1rem;
     margin-left:10px;
 }
+
+
+.footer, .footer *{
+    text-align: center;
+}
+
+.license {
+    margin-top:15px;
+}
