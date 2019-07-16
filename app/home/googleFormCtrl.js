@@ -5,6 +5,10 @@ define([], function () {
 
         $scope.toggleFrame = function(){
             $scope.showGoogleForm = !$scope.showGoogleForm;
+            document.body.style.overflowY = 'hidden';
+            if (!$scope.showGoogleForm) {
+              document.body.style.overflowY = 'scroll';
+            }
         }
     };
 
