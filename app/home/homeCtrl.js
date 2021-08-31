@@ -33,56 +33,36 @@ define(['app'], function (app) {
         });
 
         /* Accessing the spreadsheet */
-        let spreadsheetID =  "11do5pyqEAI_mSq_kRWQpHe3GSGUtWOwlbe_uQW9sZs4";
-        let request = {
+        const apiKey = "AIzaSyAJxTN38pXzhOqM99nGj6LhUYNTLUtDj1w",
+          sheetID = "11do5pyqEAI_mSq_kRWQpHe3GSGUtWOwlbe_uQW9sZs4",
+          sheetName = "FormResponses",
+          baseURL = "https://sheets.googleapis.com/v4/spreadsheets/",
+          url = baseURL + sheetID + '/values/' + sheetName  + "?alt=json&key=" + apiKey,
+          request = {
             method: 'GET',
-            url: "https://spreadsheets.google.com/feeds/list/" + spreadsheetID + "/1/public/full?alt=json"
-        };
+            url: url
+          };
 
         /* TRIGGERING THE QUERY AND BUILDING THE DATA */
         $http(request).then(function(response){
-            $scope.display.labels = build_labels(response.data['feed']['entry'][0]);
-
-            let output = [];
-            let it = 0;
-            for (let item_it in response.data['feed']['entry']) {
-                if (response.data['feed']['entry'].hasOwnProperty(item_it)) {
-
-                    let valid_item = false;
-                    let new_item = {};
-
-                    if (it > 0){
-                        let item = response.data['feed']['entry'][item_it];
-
-                        for (let field in item) {
-                            if (item.hasOwnProperty(field) && field.indexOf('gsx$') > -1) {
-                                new_item[$scope.display.labels[field]] = $sce.trustAsHtml(item[field]['$t'].replace(/\n/g, "<BR>").trim());
-                                if (field === 'gsx$reviewed' && item[field]['$t'] === 'Y' ) {
-                                    valid_item = true;
-                                }
-                            }
-                        }
-                    }
-                    if (valid_item) {
-                        output.push(new_item)
-                    }
+            const data = response.data['values']
+            $scope.display.labels = data[0].filter(obj => { return obj !== 'Timestamp'}) // build_labels(res[0]);
+            let i = 0;
+            data.forEach(obj => {
+                if (i > 1 && ["Y", "True", "Yes", "y", "true", "yes"].includes(obj[13])) {
+                    $scope.data.content.push( {
+                        "Resource": $sce.trustAsHtml(obj[1]),
+                        "Resource_URL": $sce.trustAsHtml(obj[2]),
+                        "Execution-type": $sce.trustAsHtml(obj[3]),
+                        "Key-features": $sce.trustAsHtml(obj[4].split("\n").join('<BR>')),
+                        "Organisation": $sce.trustAsHtml(obj[5]),
+                        "Target-objects": $sce.trustAsHtml(obj[7]),
+                        "Reading-material": $sce.trustAsHtml(obj[8]),
+                        "Reading-material_URL": $sce.trustAsHtml(obj[9])
+                    })
                 }
-                it++;
-            }
-            $scope.data.content = output;
+                i += 1;
+            })
         });
-
-        /* PRIVATE FUNCTIONS */
-        let build_labels = function(item){
-            let labels = {};
-            for (let field in item){
-                if (item.hasOwnProperty(field)
-                    && field.indexOf('gsx$') !== -1)
-                {
-                    labels[field] = item[field]['$t'];
-                }
-            }
-            return labels;
-        }
     }])
 });

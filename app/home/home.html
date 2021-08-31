@@ -17,11 +17,9 @@
         If your resource is missing, you can submit it via the "Register resource" button below.
     </p>
 </div>
-
 <div class="openGForm" google-form="">
     <div></div>
 </div>
-
 <table class="table table-hover table-light table-striped" ng-if="!display.mobile">
 
     <thead>
@@ -44,8 +42,8 @@
         <tr ng-repeat="item in data.content | orderBy:'\''+display.sorting_field+'\'':display.sorting_order[display.sorting_field]">
             <td ng-repeat="label in display.authorized_labels"
                 ng-class="{'borderLeftCell': !$first}"
-                class="{{label}}">
-
+                class="{{label}}"
+            >
                 <div ng-if="item.hasOwnProperty(label + '_URL')">
                     <a ng-href="{{item[label + '_URL']}}" target="_blank" ng-bind-html="item[label]"></a>
                 </div>
